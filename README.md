@@ -47,4 +47,22 @@ calcapp/
 
 - `bun run dev`: Start all applications in development mode
 - `bun run build`: Build all applications
+- `bun run start`: Start the production server
 - `bun run check-types`: Check TypeScript types across all apps
+
+## Environment Variables
+
+Copy `env.example` to `.env` and configure:
+
+```bash
+cp env.example .env
+```
+
+Required variables:
+- `OPENAI_API_KEY`: Your OpenAI API key for califi integration
+
+Get your API key from [OpenAI Platform](https://platform.openai.com/api-keys).
+
+## Deployment
+
+For production deployment on Railway, see [RAILWAY_DEPLOYMENT.md](./RAILWAY_DEPLOYMENT.md) for detailed instructions.
