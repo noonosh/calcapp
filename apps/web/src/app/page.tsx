@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 import {
   ArrowRight,
   Clock,
+  Copy,
   History as HistoryIcon,
   Sparkles,
 } from "lucide-react";
@@ -196,6 +197,17 @@ export default function Home() {
     toast.success("History cleared.");
   };
 
+  const copyResultToClipboard = async () => {
+    if (!result) return;
+
+    try {
+      await navigator.clipboard.writeText(result);
+      toast.success("Result copied to clipboard!");
+    } catch (error) {
+      toast.error("Failed to copy to clipboard.");
+    }
+  };
+
   return (
     <div className="relative flex-1 overflow-y-auto">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(15,23,42,0.08),transparent_60%)] dark:bg-[radial-gradient(circle_at_top,rgba(148,163,184,0.14),transparent_65%)]" />
@@ -259,11 +271,24 @@ export default function Home() {
                       <Sparkles className="size-4 text-primary" />
                       Result
                     </div>
-                    {isEvaluating ? (
-                      <span className="text-xs text-muted-foreground">
-                        Evaluating…
-                      </span>
-                    ) : null}
+                    <div className="flex items-center gap-2">
+                      {isEvaluating ? (
+                        <span className="text-xs text-muted-foreground">
+                          Evaluating…
+                        </span>
+                      ) : null}
+                      {result && (
+                        <button
+                          type="button"
+                          onClick={copyResultToClipboard}
+                          className="flex cursor-pointer items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/70"
+                          title="Copy result to clipboard"
+                        >
+                          <Copy className="size-4" />
+                          <span>Copy to Clipboard</span>
+                        </button>
+                      )}
+                    </div>
                   </div>
                   <div className="min-h-[80px]">
                     {result ? (
